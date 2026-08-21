@@ -53,7 +53,7 @@
 |---|------|-------------|------|---------|--------|
 | ✅ | **Visual Studio Code** | Primary editor (settings are the source of truth) | free | MIT | [repo](https://github.com/microsoft/vscode) |
 | ✅ | **Cursor** | AI-native VS Code fork | freemium | proprietary | — |
-| ✅ | **Antigravity IDE** | AI Coding Agent IDE | free | proprietary | — |
+| ⬜ | **Antigravity IDE** | AI Coding Agent IDE | free | proprietary | — |
 | ✅ | **Sublime Text** | Fast text editor for quick edits | paid | proprietary | — |
 
 ## web
@@ -94,26 +94,26 @@
 | | Tool | Description | Cost | License | Source |
 |---|------|-------------|------|---------|--------|
 | ✅ | **Claude Code** | Anthropic's agentic coding CLI | freemium | proprietary | [repo](https://github.com/anthropics/claude-code) |
-| ✅ | **Codex CLI** | OpenAI Codex agentic coding CLI | freemium | Apache-2.0 | [repo](https://github.com/openai/codex) |
-| ✅ | **Antigravity CLI** | Google Antigravity agentic coding CLI | free | Apache-2.0 | [repo](https://github.com/google-antigravity/antigravity-cli) |
-| ✅ | **opencode** | SST's open-source terminal AI agent | free | MIT | [repo](https://github.com/sst/opencode) |
-| ✅ | **Context7 CLI** | Fetches up-to-date library docs (Upstash Context7) | freemium | MIT | [repo](https://github.com/upstash/context7) |
-| ✅ | **Context Hub CLI** | Semantic code/context search CLI (Andrew Ng) | free | MIT | [repo](https://github.com/andrewyng/context-hub) |
-| ✅ | **Pencil CLI** | Design-to-code CLI (Pencil.dev: canvas designs → code) | freemium | proprietary | — |
+| ⬜ | **Codex CLI** | OpenAI Codex agentic coding CLI | freemium | Apache-2.0 | [repo](https://github.com/openai/codex) |
+| ⬜ | **Antigravity CLI** | Google Antigravity agentic coding CLI | free | Apache-2.0 | [repo](https://github.com/google-antigravity/antigravity-cli) |
+| ⬜ | **opencode** | SST's open-source terminal AI agent | free | MIT | [repo](https://github.com/sst/opencode) |
+| ⬜ | **Context7 CLI** | Fetches up-to-date library docs (Upstash Context7) | freemium | MIT | [repo](https://github.com/upstash/context7) |
+| ⬜ | **Context Hub CLI** | Semantic code/context search CLI (Andrew Ng) | free | MIT | [repo](https://github.com/andrewyng/context-hub) |
+| ⬜ | **Pencil CLI** | Design-to-code CLI (Pencil.dev: canvas designs → code) | freemium | proprietary | — |
 | ✅ | **Claude Desktop** | Anthropic Claude desktop app (NOT the CLI) | freemium | proprietary | — |
-| ✅ | **ChatGPT Desktop** | OpenAI ChatGPT desktop app | freemium | proprietary | — |
-| ✅ | **Codex Desktop** | OpenAI Codex desktop app | freemium | proprietary | — |
-| ✅ | **Antigravity** | Agent orchestration platform | free | proprietary | — |
-| ✅ | **opencode-desktop** | SST opencode desktop app (beta) | free | MIT | [repo](https://github.com/sst/opencode) |
-| ✅ | **Superset** | Desktop orchestrator running multiple agents in parallel worktrees | freemium | proprietary | — |
-| ✅ | **cmux** | Ghostty-based terminal with vertical tabs for running AI coding agents | free | GPL-3.0 | [repo](https://github.com/manaflow-ai/cmux) |
-| ✅ | **Pencil Desktop** | Design-to-code canvas desktop app (Pencil.dev) — GUI, not the CLI | freemium | proprietary | — |
+| ⬜ | **ChatGPT Desktop** | OpenAI ChatGPT desktop app | freemium | proprietary | — |
+| ⬜ | **Codex Desktop** | OpenAI Codex desktop app | freemium | proprietary | — |
+| ⬜ | **Antigravity** | Agent orchestration platform | free | proprietary | — |
+| ⬜ | **opencode-desktop** | SST opencode desktop app (beta) | free | MIT | [repo](https://github.com/sst/opencode) |
+| ⬜ | **Superset** | Desktop orchestrator running multiple agents in parallel worktrees | freemium | proprietary | — |
+| ⬜ | **cmux** | Ghostty-based terminal with vertical tabs for running AI coding agents | free | GPL-3.0 | [repo](https://github.com/manaflow-ai/cmux) |
+| ⬜ | **Pencil Desktop** | Design-to-code canvas desktop app (Pencil.dev) — GUI, not the CLI | freemium | proprietary | — |
 
 ## nanoclaw
 
 | | Tool | Description | Cost | License | Source |
 |---|------|-------------|------|---------|--------|
-| ✅ | **nanoclaw** | Self-hosted AI agent host — Claude agents in isolated containers, paired to messaging channels | free | MIT | [repo](https://github.com/nanocoai/nanoclaw) |
+| ⬜ | **nanoclaw** | Self-hosted AI agent host — Claude agents in isolated containers, paired to messaging channels | free | MIT | [repo](https://github.com/nanocoai/nanoclaw) |
 
 ## openclaw
 

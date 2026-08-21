@@ -63,25 +63,6 @@ setup() {
   [ ! -s "$CALLS_LOG" ] || ! grep -q 'code --install-extension' "$CALLS_LOG"
 }
 
-@test "install_into: installs the Pencil extension into Antigravity IDE via agy-ide" {
-  # Antigravity IDE is a VS Code fork whose CLI is `agy-ide` (Open VSX gallery).
-  # Same shared list, same code path as code/cursor.
-  CODE_INSTALLED_EXTS="" run install_into agy-ide "Antigravity IDE"
-  assert_success
-  grep '^agy-ide ' "$CALLS_LOG" | grep -qF -- '--install-extension highagency.pencildev'
-}
-
-@test "install_into: skips Antigravity IDE entirely when agy-ide is not on PATH" {
-  remove_stub agy-ide
-  local saved_path="$PATH"
-  PATH="$MOCKBIN:/usr/bin:/bin"
-  run install_into agy-ide "Antigravity IDE"
-  PATH="$saved_path"
-  assert_success
-  assert_output --partial 'not on PATH'
-  [ ! -s "$CALLS_LOG" ] || ! grep -q 'agy-ide --install-extension' "$CALLS_LOG"
-}
-
 # ---- npm_install_if_missing (30-mise) -------------------------------------
 
 @test "npm_install_if_missing: installs when check fails" {
