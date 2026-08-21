@@ -64,10 +64,6 @@ command -v mise >/dev/null 2>&1 && export JAVA_HOME="$(mise where java 2>/dev/nu
 {{ end -}}
 
 {{ if index .modules "ai-tools" -}}
-# opencode CLI installs to ~/.opencode/bin. Its own installer appends a PATH line
-# to the shell rc, but chezmoi owns this file and overwrites that on every apply,
-# so we set the PATH here instead. $HOME resolves at runtime — nothing hardcoded.
-export PATH="$HOME/.opencode/bin:$PATH"
 # Vercel plugin (ai-plugins.toml `open` backend) ships telemetry ON by default;
 # opt out to match the no-telemetry posture we keep for AI-client plugins.
 export VERCEL_PLUGIN_TELEMETRY=off

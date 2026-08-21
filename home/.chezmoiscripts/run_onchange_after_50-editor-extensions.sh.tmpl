@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # run_onchange_after_50-editor-extensions.sh
-# Installs the shared extension set into VS Code, Cursor, and Antigravity IDE
-# (whichever exist). Re-runs when this list changes.
+# Installs the shared extension set into VS Code and Cursor (whichever exist).
+# Re-runs when this list changes.
 #
 # Logic lives in functions + main() so the rendered script can be sourced by
 # the test suite without executing side effects (see the BASH_SOURCE guard at
@@ -29,7 +29,6 @@ EXTENSIONS=(
   redhat.vscode-yaml
   github.vscode-github-actions
   yzhang.markdown-all-in-one
-  highagency.pencildev
 )
 
 install_into() {
@@ -38,7 +37,7 @@ install_into() {
   echo "==> [extensions] $label"
   local installed; installed="$("$bin" --list-extensions 2>/dev/null | tr '[:upper:]' '[:lower:]')"
   # Install every missing extension in one call — each invocation cold-starts a
-  # full editor host (slow on Antigravity IDE), so per-extension calls add up.
+  # full editor host, so per-extension calls add up.
   local ext missing=() args=()
   for ext in "${EXTENSIONS[@]}"; do
     if grep -qx "$(echo "$ext" | tr '[:upper:]' '[:lower:]')" <<<"$installed"; then
@@ -49,9 +48,7 @@ install_into() {
     fi
   done
   [ "${#missing[@]}" -eq 0 ] && return
-  # Drop Antigravity IDE's benign "antigravityAnalytics ... NOT registered" noise.
   "$bin" "${args[@]}" --force >/dev/null \
-    2> >(grep -v 'antigravityAnalytics which is NOT registered' >&2) \
     && printf '  + %s\n' "${missing[@]}"
 }
 
@@ -61,7 +58,6 @@ main() {
 {{ end }}
   install_into code   "VS Code"
   install_into cursor "Cursor"
-  install_into agy-ide "Antigravity IDE"
   echo "==> [extensions] done"
 }
 

@@ -39,7 +39,6 @@ setup_brew() {
   # The footgun: enabled tap formulae must NEVER be removal candidates.
   refute_output --partial "hunk"
   refute_output --partial "oven-sh/bun"
-  refute_output --partial "pencil-dev"
 }
 
 @test "brew: a disabled, installed entry is uninstalled (tap path -> basename)" {
@@ -243,12 +242,20 @@ setup_npm() {
   npm_remove() { echo "remove $1" >>"$CALLS"; }
 }
 
-@test "npm: no npm entries are disabled today, so rendered removals are empty" {
+@test "npm: rendered removals are the disabled entries, by scoped package name" {
   render_to_file "$(script_tmpl 30-mise)" "$BATS_TEST_TMPDIR/n.sh" full.toml
   source "$BATS_TEST_TMPDIR/n.sh"
   run npm_removal_rows
   assert_success
-  refute_output --regexp '.'
+  # The disabled AI CLIs — scoped names must survive intact (no basename-ing,
+  # unlike the brew tap path above).
+  assert_line "ctx7"
+  assert_line "@aisuite/chub"
+  assert_line "@pencil.dev/cli"
+  # Enabled entries must NEVER be removal candidates.
+  refute_output --partial "eas-cli"
+  refute_output --partial "vercel"
+  refute_output --partial "screenpipe"
 }
 
 @test "npm: a disabled, installed package is removed by package name" {
@@ -352,7 +359,7 @@ setup_script() {
   source "$BATS_TEST_TMPDIR/s.sh"
   run script_desired_rows
   assert_success
-  assert_line "opencode|opencode --version|rm -rf ~/.opencode/bin"
+  assert_line "pass-cli|pass-cli --version|rm -f ~/.local/bin/pass-cli"
   assert_line --partial "Claude Code|claude --version|rm -f ~/.local/bin/claude"
 }
 
