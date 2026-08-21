@@ -11,7 +11,12 @@
 # repo-scoped token is never handed to the third-party skills it clones and runs.
 #
 # Reconcile model:
-#   desired  = (agent, skill) pairs from skills.toml (repo x skills x agents).
+#   desired  = (agent, skill) pairs from skills.toml (repo x skills x agents),
+#              skipping blocks flagged `enabled = false` (absent -> enabled). A
+#              disabled block is therefore UNINSTALLED, not ignored: its pairs
+#              fall out of desired and the manifest-scoped REMOVE picks them up.
+#              An entirely disabled file renders an empty desired set, which is a
+#              valid state -- reconcile removes everything it tracks and stops.
 #   installed= (agent, skill) pairs actually present, read from
 #              `skills list -g --json` (jq). Universal is implied by an entry
 #              existing (its files are the canonical ~/.agents/skills store);
@@ -46,8 +51,8 @@ MANIFEST="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/skills.applied"
 # "agent<TAB>skill<TAB>repo" line per (repo x its skills x its effective agents).
 desired_triples() {
   cat <<'DESIRED'
-{{ range $r := .repos }}{{ $agents := $.agents }}{{ if hasKey $r "agents" }}{{ $agents = $r.agents }}{{ end }}{{ range $skill := $r.skills }}{{ range $a := $agents }}{{ $a }}	{{ $skill }}	{{ $r.repo }}
-{{ end }}{{ end }}{{ end -}}
+{{ range $r := .repos }}{{ $on := true }}{{ if hasKey $r "enabled" }}{{ $on = $r.enabled }}{{ end }}{{ if $on }}{{ $agents := $.agents }}{{ if hasKey $r "agents" }}{{ $agents = $r.agents }}{{ end }}{{ range $skill := $r.skills }}{{ range $a := $agents }}{{ $a }}	{{ $skill }}	{{ $r.repo }}
+{{ end }}{{ end }}{{ end }}{{ end -}}
 DESIRED
 }
 
