@@ -8,9 +8,13 @@ for these agents by default: {{ range $i, $a := .agents }}{{ if $i }}, {{ end }}
 A repo with its own `agents` list installs only to those. One batched install per
 repo; the skill name is the identity key (unique across the whole file).
 
-| Source | Skills | Agents |
-|--------|--------|--------|
+✅ = installed. ⬜ = `enabled = false` in `skills.toml`: kept as catalog, but
+dropped from the desired set, so the next `chezmoi apply` **uninstalls** it.
+
+| | Source | Skills | Agents |
+|---|--------|--------|--------|
 {{ range $r := .repos -}}
 {{- $agents := $.agents }}{{ if hasKey $r "agents" }}{{ $agents = $r.agents }}{{ end -}}
-| [{{ $r.repo }}]({{ if hasPrefix "http" $r.repo }}{{ $r.repo }}{{ else }}https://github.com/{{ $r.repo }}{{ end }}) | {{ range $i, $s := $r.skills }}{{ if $i }}, {{ end }}`{{ $s }}`{{ end }} | {{ range $i, $a := $agents }}{{ if $i }}, {{ end }}{{ $a }}{{ end }} |
+{{- $on := true }}{{ if hasKey $r "enabled" }}{{ $on = $r.enabled }}{{ end -}}
+| {{ if $on }}✅{{ else }}⬜{{ end }} | [{{ $r.repo }}]({{ if hasPrefix "http" $r.repo }}{{ $r.repo }}{{ else }}https://github.com/{{ $r.repo }}{{ end }}) | {{ range $i, $s := $r.skills }}{{ if $i }}, {{ end }}`{{ $s }}`{{ end }} | {{ range $i, $a := $agents }}{{ if $i }}, {{ end }}{{ $a }}{{ end }} |
 {{ end -}}

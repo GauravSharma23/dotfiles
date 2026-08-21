@@ -17,6 +17,13 @@
 #   skills the skill NAMES within that repo to install. Each name is the identity
 #          key used for install AND removal AND the applied-manifest, so a name
 #          must be UNIQUE across the whole file (not just within its repo).
+#   enabled OPTIONAL, defaults to TRUE when omitted. `enabled = false` drops the
+#          block from the desired set -- which means UNINSTALL, not "ignore":
+#          reconcile removes every manifest-tracked pair the block owns on the
+#          next apply. The block stays here as catalog (and still renders in
+#          SKILLS.md, as an empty checkbox), one flag away from coming back.
+#          Names must stay unique even while disabled -- the name is the
+#          removal identity key.
 #   agents OPTIONAL per-REPO override. Omitted -> the block installs to every
 #          agent in the top-level `agents` list. Present -> only to those agents.
 #
@@ -35,6 +42,9 @@
 # with a curated one makes it look "ours" (it would be removed if dropped here).
 #
 # Notes:
+#   - EVERYTHING IS CURRENTLY DISABLED: every block below carries
+#     `enabled = false`, so the desired set is empty and reconcile uninstalls
+#     the whole curated catalog. Flip a block's flag to re-enable just it.
 #   - Five mattpocock skills (grilling, grill-me, code-review,
 #     resolving-merge-conflicts) plus shadcn/improve's `improve` share names with
 #     Claude Code built-ins and deliberately OVERRIDE them.
@@ -50,14 +60,17 @@ agents = ["universal", "claude-code", "openclaw", "hermes-agent", "pi"]
 # ------------------------------------------------------------ vercel ----
 [[repos]]
 repo = "vercel-labs/skills"
+enabled = false
 skills = ["find-skills"]
 
 [[repos]]
 repo = "vercel/turborepo"
+enabled = false
 skills = ["turborepo"]
 
 [[repos]]
 repo = "vercel-labs/agent-skills"
+enabled = false
 skills = [
   "vercel-react-native-skills",
   "vercel-composition-patterns",
@@ -74,15 +87,18 @@ skills = [
 # page for it.) The surviving Next.js workflow skills live in vercel/next.js.
 [[repos]]
 repo = "vercel/components.build"
+enabled = false
 skills = ["building-components"]
 
 [[repos]]
 repo = "vercel-labs/agent-browser"
+enabled = false
 skills = ["agent-browser"]
 
 # -------------------------------------------------------------- expo ----
 [[repos]]
 repo = "expo/skills"
+enabled = false
 skills = [
   "building-native-ui",
   "native-data-fetching",
@@ -105,42 +121,51 @@ skills = [
 # callstackincubator/agent-skills ships both a react-native and a CI skill.
 [[repos]]
 repo = "callstackincubator/agent-skills"
+enabled = false
 skills = ["react-native-best-practices", "github-actions"]
 
 [[repos]]
 repo = "callstack/react-native-testing-library"
+enabled = false
 skills = ["react-native-testing"]
 
 [[repos]]
 repo = "pproenca/dot-skills"
+enabled = false
 skills = ["react-testing-library"]
 
 [[repos]]
 repo = "aidenybai/react-doctor"
+enabled = false
 skills = ["react-doctor"]
 
 # --------------------------------------------------------------- ui ----
 [[repos]]
 repo = "shadcn/ui"
+enabled = false
 skills = ["shadcn"]
 
 [[repos]]
 repo = "shadcn/improve"
+enabled = false
 skills = ["improve"]
 
 # --------------------------------------------------------- typescript ----
 [[repos]]
 repo = "mcollina/skills"
+enabled = false
 skills = ["typescript-magician"]
 
 [[repos]]
 repo = "wshobson/agents"
+enabled = false
 skills = ["typescript-advanced-types"]
 
 # ----------------------------------------------- mattpocock workflow ----
 # tdd + the full workflow set, all from one repo -> one clone.
 [[repos]]
 repo = "mattpocock/skills"
+enabled = false
 skills = [
   "tdd",
   "wayfinder",
@@ -165,14 +190,17 @@ skills = [
 # ------------------------------------------------------------ testing ----
 [[repos]]
 repo = "currents-dev/playwright-best-practices-skill"
+enabled = false
 skills = ["playwright-best-practices"]
 
 [[repos]]
 repo = "microsoft/playwright-cli"
+enabled = false
 skills = ["playwright-cli"]
 
 [[repos]]
 repo = "antfu/skills"
+enabled = false
 skills = ["vitest"]
 
 # --------------------------------------------------------- git / ci ----
@@ -183,10 +211,12 @@ skills = ["vitest"]
 # re-added the whole repo (reinstalling git-commit each run). Only git-commit remains.
 [[repos]]
 repo = "github/awesome-copilot"
+enabled = false
 skills = ["git-commit"]
 
 [[repos]]
 repo = "xixu-me/skills"
+enabled = false
 skills = ["github-actions-docs"]
 
 # ---------------------------------------------------------- logging ----
@@ -197,15 +227,18 @@ skills = ["github-actions-docs"]
 # CLI reads https://www.evlog.dev/.well-known/skills/index.json instead.
 [[repos]]
 repo = "https://www.evlog.dev"
+enabled = false
 skills = ["review-logging-patterns", "analyze-logs", "build-audit-logs"]
 
 [[repos]]
 repo = "remorses/errore"
+enabled = false
 skills = ["errore"]
 
 # ------------------------------------------------------- better-auth ----
 [[repos]]
 repo = "better-auth/skills"
+enabled = false
 skills = [
   "better-auth-best-practices",
   "create-auth-skill",
@@ -217,18 +250,22 @@ skills = [
 # Security skill sourced from our fork instead of upstream better-auth/skills.
 [[repos]]
 repo = "ax-at/better-auth-skills"
+enabled = false
 skills = ["better-auth-security-best-practices"]
 
 # -------------------------------------------------------- databases ----
 [[repos]]
 repo = "planetscale/database-skills"
+enabled = false
 skills = ["postgres", "mysql"]
 
 # ------------------------------------------------------------ media ----
 [[repos]]
 repo = "remotion-dev/skills"
+enabled = false
 skills = ["remotion-best-practices"]
 
 [[repos]]
 repo = "heygen-com/hyperframes"
+enabled = false
 skills = ["hyperframes"]

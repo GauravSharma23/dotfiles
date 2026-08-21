@@ -44,7 +44,7 @@ ai-tools = true
 ai-assistants = true
 ai-productivity-tools = true
 nanoclaw = false
-openclaw = false
+alphaclaw = false
 productivity = true
 linux-feel = true
 macos-defaults = true
@@ -491,7 +491,7 @@ desc = "AI Coding Agent IDE"
 cost = "free"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos"]
 macos = { method = "cask", pkg = "antigravity-ide" }
 
@@ -683,7 +683,7 @@ desc = "OpenAI Codex agentic coding CLI"
 cost = "freemium"
 license = "Apache-2.0"
 repo = "https://github.com/openai/codex"
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 macos = { method = "script", pkg = "codex", check = "codex --version", cmd = "curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=true sh", uninstall_cmd = "rm -f ~/.local/bin/codex && rm -rf ~/.codex/packages/standalone" }
 linux = { method = "script", pkg = "codex", check = "codex --version", cmd = "curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=true sh", uninstall_cmd = "rm -f ~/.local/bin/codex && rm -rf ~/.codex/packages/standalone" }
@@ -695,7 +695,7 @@ desc = "Google Antigravity agentic coding CLI"
 cost = "free"
 license = "Apache-2.0"
 repo = "https://github.com/google-antigravity/antigravity-cli"
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 macos = { method = "script", pkg = "antigravity-cli", check = "agy --version", cmd = "curl -fsSL https://antigravity.google/cli/install.sh | bash", uninstall_cmd = "rm -f ~/.local/bin/agy && rm -rf ~/.cache/antigravity" }
 linux = { method = "script", pkg = "antigravity-cli", check = "agy --version", cmd = "curl -fsSL https://antigravity.google/cli/install.sh | bash", uninstall_cmd = "rm -f ~/.local/bin/agy && rm -rf ~/.cache/antigravity" }
@@ -707,7 +707,7 @@ desc = "SST's open-source terminal AI agent"
 cost = "free"
 license = "MIT"
 repo = "https://github.com/sst/opencode"
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 macos = { method = "script", pkg = "opencode", check = "opencode --version", cmd = "curl -fsSL https://opencode.ai/install | bash", uninstall_cmd = "rm -rf ~/.opencode/bin" }
 linux = { method = "script", pkg = "opencode", check = "opencode --version", cmd = "curl -fsSL https://opencode.ai/install | bash", uninstall_cmd = "rm -rf ~/.opencode/bin" }
@@ -719,7 +719,7 @@ desc = "Fetches up-to-date library docs (Upstash Context7)"
 cost = "freemium"
 license = "MIT"
 repo = "https://github.com/upstash/context7"
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 macos = { method = "npm", pkg = "ctx7", check = "ctx7 --version" }
 linux = { method = "npm", pkg = "ctx7", check = "ctx7 --version" }
@@ -731,7 +731,7 @@ desc = "Semantic code/context search CLI (Andrew Ng)"
 cost = "free"
 license = "MIT"
 repo = "https://github.com/andrewyng/context-hub"
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 macos = { method = "npm", pkg = "@aisuite/chub", check = "chub --version" }
 linux = { method = "npm", pkg = "@aisuite/chub", check = "chub --version" }
@@ -743,7 +743,7 @@ desc = "Design-to-code CLI (Pencil.dev: canvas designs → code)"
 cost = "freemium"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 macos = { method = "npm", pkg = "@pencil.dev/cli", check = "pencil --version" }
 linux = { method = "npm", pkg = "@pencil.dev/cli", check = "pencil --version" }
@@ -767,7 +767,7 @@ desc = "OpenAI ChatGPT desktop app"
 cost = "freemium"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos"]
 macos = { method = "cask", pkg = "chatgpt" }
 
@@ -778,7 +778,7 @@ desc = "OpenAI Codex desktop app"
 cost = "freemium"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos"]
 macos = { method = "cask", pkg = "codex-app" }
 
@@ -789,7 +789,7 @@ desc = "Agent orchestration platform"
 cost = "free"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos"]
 macos = { method = "cask", pkg = "antigravity" }
 
@@ -800,7 +800,7 @@ desc = "SST opencode desktop app (beta)"
 cost = "free"
 license = "MIT"
 repo = "https://github.com/sst/opencode"
-enabled = true
+enabled = false
 platforms = ["macos"]
 macos = { method = "cask", pkg = "opencode-desktop" }
 
@@ -811,7 +811,7 @@ desc = "Desktop orchestrator running multiple agents in parallel worktrees"
 cost = "freemium"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos"]
 macos = { method = "cask", pkg = "superset" }
 
@@ -822,7 +822,7 @@ desc = "Ghostty-based terminal with vertical tabs for running AI coding agents"
 cost = "free"
 license = "GPL-3.0"
 repo = "https://github.com/manaflow-ai/cmux"
-enabled = true
+enabled = false
 platforms = ["macos"]
 start_at_login = { hidden = false }
 macos = { method = "cask", pkg = "cmux" }
@@ -834,7 +834,7 @@ desc = "Design-to-code canvas desktop app (Pencil.dev) — GUI, not the CLI"
 cost = "freemium"
 license = "proprietary"
 repo = ""
-enabled = true
+enabled = false
 platforms = ["macos"]
 # Lives in a custom tap (ax-at/homebrew-tap); no official cask exists and the
 # 'pencil' token is the unrelated Evolus Pencil. The full tap path auto-taps.
@@ -848,7 +848,7 @@ desc = "Self-hosted AI agent host — Claude agents in isolated containers, pair
 cost = "free"
 license = "MIT"
 repo = "https://github.com/nanocoai/nanoclaw"
-enabled = true
+enabled = false
 platforms = ["macos", "linux"]
 # Clone only (idempotent via `test -d`); the interactive `nanoclaw.sh` onboarding
 # is deferred to run_once_after_90-nanoclaw-onboarding, which runs dead-last.
@@ -859,29 +859,26 @@ platforms = ["macos", "linux"]
 macos = { method = "script", pkg = "nanoclaw", check = "test -d $HOME/nanoclaw-v2", cmd = "git clone https://github.com/nanocoai/nanoclaw.git $HOME/nanoclaw-v2", uninstall_cmd = '[ -n "$(git -C $HOME/nanoclaw-v2 status --porcelain --ignored 2>/dev/null || echo x)" ] || rm -rf $HOME/nanoclaw-v2' }
 linux = { method = "script", pkg = "nanoclaw", check = "test -d $HOME/nanoclaw-v2", cmd = "git clone https://github.com/nanocoai/nanoclaw.git $HOME/nanoclaw-v2", uninstall_cmd = '[ -n "$(git -C $HOME/nanoclaw-v2 status --porcelain --ignored 2>/dev/null || echo x)" ] || rm -rf $HOME/nanoclaw-v2' }
 
-# --------------------------------------------------------------- openclaw ----
+# -------------------------------------------------------------- alphaclaw ----
 [[packages]]
-name = "openclaw"
-module = "openclaw"
-desc = "Self-hosted personal AI assistant — autonomous agent paired to chat platforms (WhatsApp, Telegram, Discord)"
+name = "alphaclaw"
+module = "alphaclaw"
+desc = "Browser-based setup UI, gateway manager, and onboarding wrapper for OpenClaw"
 cost = "free"
 license = "MIT"
-repo = "https://github.com/openclaw/openclaw"
+repo = "https://github.com/chrysb/alphaclaw"
 enabled = true
 platforms = ["macos", "linux"]
-# Upstream's recommended installer (install-cli.sh) over a bare `npm install -g`:
-# it bundles a pinned, verified node and clears npm freshness gates, so it needs no
-# mise. --prefix "$HOME/.local" lands the self-contained wrapper at ~/.local/bin/openclaw
-# (on PATH via dot_zprofile), like the other script tools; it runs in
-# run_onchange_after_40-ai-tools. Install-only (install-cli.sh does not auto-onboard) —
-# the interactive `openclaw onboard` is deferred to run_once_after_95-openclaw-onboarding,
-# dead-last (after nanoclaw's 90). Uninstall on module-off is deliberately PARTIAL +
-# REVERSIBLE: stop the Gateway service and rm the CLI wrapper, but PRESERVE ~/.openclaw
-# (state/creds) + workspace (--state would `rm -rf ~/.openclaw`). `openclaw uninstall`
-# never removes the CLI itself, so we rm the wrapper; `|| true` keeps reconcile's set -e
-# happy. (`||` is safe: uninstall_cmd is the trailing pipe-delimited field — same as nanoclaw.)
-macos = { method = "script", pkg = "openclaw", check = "openclaw --version", cmd = 'curl -fsSL https://openclaw.ai/install-cli.sh | bash -s -- --prefix "$HOME/.local"', uninstall_cmd = 'command -v openclaw >/dev/null 2>&1 && openclaw uninstall --service --yes --non-interactive || true; rm -f "$HOME/.local/bin/openclaw"' }
-linux = { method = "script", pkg = "openclaw", check = "openclaw --version", cmd = 'curl -fsSL https://openclaw.ai/install-cli.sh | bash -s -- --prefix "$HOME/.local"', uninstall_cmd = 'command -v openclaw >/dev/null 2>&1 && openclaw uninstall --service --yes --non-interactive || true; rm -f "$HOME/.local/bin/openclaw"' }
+# npm-global via mise (run_onchange_after_30-mise), like screenpipe/ctx7. Needs node
+# >= 22.22.3 / 24.15.0 / 25.9.0 — mise's `node = "lts"` satisfies this. `pkg` is the
+# scoped PACKAGE name (npm_installed keys on it); the binary is `alphaclaw`.
+# check uses `alphaclaw version` — the CLI's own subcommand; there is no `--version`.
+# No uninstall_cmd: npm entries uninstall generically (`npm uninstall -g $pkg`).
+# It wraps openclaw (installs/manages the Gateway itself), so openclaw is no longer a
+# registry entry of its own; deleting that entry makes 40-ai-tools uninstall it from
+# the script manifest, preserving ~/.openclaw state.
+macos = { method = "npm", pkg = "@chrysb/alphaclaw", check = "alphaclaw version" }
+linux = { method = "npm", pkg = "@chrysb/alphaclaw", check = "alphaclaw version" }
 
 # -------------------------------------------------------- ai-assistants ----
 [[packages]]

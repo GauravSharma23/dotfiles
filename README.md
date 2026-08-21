@@ -110,7 +110,7 @@ Tracked here because Apple/vendor flows require a human:
 - [ ] **VS Code / Cursor**: turn **off** the built-in Settings Sync (chezmoi manages `settings.json`).
 - [ ] **AI-client plugins**: authenticate **PostHog**, **Vercel**, and **Supabase** once per client (browser OAuth). Cursor is auto-imported from Claude — no manual add — see [docs/ai-plugins.md](./docs/ai-plugins.md).
 - [ ] **nanoclaw onboarding** (only if `modules.nanoclaw` is enabled): if you deferred it during `chezmoi apply`, finish it with `cd ~/nanoclaw-v2 && bash nanoclaw.sh`.
-- [ ] **openclaw onboarding** (only if `modules.openclaw` is enabled): if you deferred it during `chezmoi apply`, finish it with `openclaw onboard`.
+- [ ] **alphaclaw setup** (only if `modules.alphaclaw` is enabled): start the dashboard with `alphaclaw start`. It needs `SETUP_PASSWORD`, `GITHUB_TOKEN`, and `GITHUB_WORKSPACE_REPO` in the environment; it installs and manages OpenClaw itself.
 - [ ] **Log out / back in** so fast key-repeat + modifier changes fully apply.
 
 ---
@@ -134,9 +134,11 @@ After editing, apply with `chezmoi apply`. Provisioning scripts re-run automatic
 
 A curated set of [agent skills](https://skills.sh) is installed **globally** (available in every project) via [`npx skills`](https://github.com/vercel-labs/skills) for five agents: `universal` (the shared `.agents/skills` dir many tools read), `claude-code`, `openclaw`, `hermes-agent`, and `pi`. The full catalog is in [SKILLS.md](./SKILLS.md).
 
-- **Source of truth:** [`home/.chezmoidata/skills.toml`](./home/.chezmoidata/skills.toml) — one `[[repos]]` block per source repo (`repo` + a `skills = [...]` list, plus an optional per-repo `agents` override; omitted → all agents in the top-level `agents` list). Each repo installs in a single batched `npx skills add` (one clone, symlinked into every target agent).
+> **All 71 skills are currently disabled** (every `[[repos]]` block carries `enabled = false`), so the desired set is empty and the next `chezmoi apply` uninstalls the lot. The catalog stays in the file — flip one flag to bring a block back.
+
+- **Source of truth:** [`home/.chezmoidata/skills.toml`](./home/.chezmoidata/skills.toml) — one `[[repos]]` block per source repo: `repo` + a `skills = [...]` list, an optional per-repo `agents` override (omitted → all agents in the top-level `agents` list), and an optional `enabled` flag (omitted → enabled). Each repo installs in a single batched `npx skills add` (one clone, symlinked into every target agent).
 - **Agent granularity is per repo, not per skill:** every skill in a `[[repos]]` block shares that block's agent set. If one skill needs a different set, give it its own `[[repos]]` block (as the `ax-at/better-auth-skills` fork does).
-- **Add / remove a skill:** add or delete it from a block, then `chezmoi apply`. The script **reconciles** against on-disk reality (`skills list -g --json`): it installs whatever's missing and **uninstalls** anything it previously installed that you've dropped from the file. It reads a manifest at `~/.local/state/dotfiles/skills.applied` only to scope removals, so **skills you add by hand are never removed** — and because reconcile trusts reality, it self-heals if the manifest drifts. (Identity is the skill _name_: hand-adding a skill whose name collides with a curated one makes it look "ours.")
+- **Add / remove / disable a skill:** add or delete it from a block — or set the block's `enabled = false`, which means _uninstall_, not _ignore_ — then `chezmoi apply`. The script **reconciles** against on-disk reality (`skills list -g --json`): it installs whatever's missing and **uninstalls** anything it previously installed that you've dropped from the file. It reads a manifest at `~/.local/state/dotfiles/skills.applied` only to scope removals, so **skills you add by hand are never removed** — and because reconcile trusts reality, it self-heals if the manifest drifts. (Identity is the skill _name_: hand-adding a skill whose name collides with a curated one makes it look "ours.")
 - **Pin a skill:** the CLI has no `@tag` syntax, but `repo` accepts any git source, so point it at a branch URL to pin (e.g. our fork `ax-at/better-auth-skills` for the security skill).
 - **Note:** five Matt Pocock skills (`grilling`, `grill-me`, `code-review`, `resolving-merge-conflicts`) plus `shadcn/improve`'s `improve` share names with Claude Code built-ins and **deliberately override** them.
 - **Regenerate the catalog:** `make update-skills` (CI enforces it stays current).
@@ -222,7 +224,6 @@ dotfiles/
 | `run_onchange_after_70-macos-defaults`    | dev defaults + Ubuntu-feel tweaks               |
 | `run_onchange_after_75-login-items`       | reconcile macOS “start at login” apps           |
 | `run_once_after_90-nanoclaw-onboarding`   | prompt to onboard nanoclaw now/later (opt-in)   |
-| `run_once_after_95-openclaw-onboarding`   | prompt to onboard openclaw now/later (opt-in)   |
 
 ---
 

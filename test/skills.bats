@@ -305,6 +305,48 @@ JSON
   refute_line "claude-code${TAB}beta"
 }
 
+@test "reconcile: an empty desired set (all blocks disabled) removes everything, adds nothing" {
+  desired_triples() { :; } # every [[repos]] block flagged enabled = false
+  printf '%s\n' \
+    "claude-code${TAB}alpha" "pi${TAB}alpha" "claude-code${TAB}beta" >"$WORLD"
+  cp "$WORLD" "$MANIFEST"
+  # A hand-added skill: in reality, never in the manifest -> must survive.
+  echo "claude-code${TAB}handmade" >>"$WORLD"
+
+  run reconcile
+  assert_success
+  refute_output --partial "-> add"
+  assert_output --partial "-> remove from claude-code: alpha beta"
+  assert_output --partial "-> remove from pi: alpha"
+
+  run cat "$WORLD"
+  assert_output "claude-code${TAB}handmade" # only the hand-added pair is left
+  run cat "$MANIFEST"
+  assert_output "" # nothing tracked any more
+}
+
+@test "enabled flag: the live skills.toml renders an empty desired set (all disabled)" {
+  # setup() sourced the script rendered from the real .chezmoidata/skills.toml.
+  # Flip a block back to enabled = true and this must be updated to match.
+  run desired_triples
+  assert_success
+  assert_output ""
+}
+
+@test "enabled guard: absent -> on, false -> off (sprig default would break false)" {
+  # Regression: `{{ $r.enabled | default true }}` returns TRUE for `false`,
+  # because sprig's default fires on any empty value. The script and the
+  # SKILLS.md template both use an explicit hasKey guard instead -- this pins
+  # that expression's semantics.
+  guard='{{ $on := true }}{{ if hasKey $r "enabled" }}{{ $on = $r.enabled }}{{ end }}{{ $on }}'
+  run bash -c "'$CHEZMOI_BIN' execute-template <<<'{{ \$r := dict }}$guard'"
+  assert_output "true" # absent -> enabled
+  run bash -c "'$CHEZMOI_BIN' execute-template <<<'{{ \$r := dict \"enabled\" false }}$guard'"
+  assert_output "false" # explicit false -> disabled
+  run bash -c "'$CHEZMOI_BIN' execute-template <<<'{{ \$r := dict \"enabled\" true }}$guard'"
+  assert_output "true"
+}
+
 @test "SKILLS.md is up to date with skills.toml" {
   run bash -c "'$CHEZMOI_BIN' execute-template --source '$SRC_DIR' < '$REPO_ROOT/scripts/skills.md.tmpl' | diff - '$REPO_ROOT/SKILLS.md'"
   assert_success

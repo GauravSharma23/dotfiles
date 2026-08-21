@@ -35,7 +35,10 @@ setup_li() {
   assert_line "Raycast.app|true"        # plain true -> <name>.app, hidden
   assert_line "Proton Pass.app|true"    # spaces preserved
   assert_line "Ghostty.app|false"       # explicit bundle (name is 'ghostty') + visible
-  assert_line "cmux.app|false"          # hidden=false override, bundle fallback
+  # Disabled packages drop out of the desired set, flag or no flag. NOTE: cmux was
+  # the only map-form entry WITHOUT a `bundle` key; with it off, the <name>.app
+  # fallback inside the map branch has no registry-backed case left.
+  refute_output --partial "cmux.app"
 }
 
 @test "turning a module off drops its apps from the desired rows" {
